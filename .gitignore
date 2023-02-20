@@ -1,0 +1,5 @@
+build
+build-*
+java/*.so
+*.swp
+autom4te.cache*

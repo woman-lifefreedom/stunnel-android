@@ -1,0 +1,1831 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>stunnel TLS Proxy</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body id="_podtop_">
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;stunnel TLS Proxy</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAZWA">NAZWA</a></li>
+  <li><a href="#SK-ADNIA">SKŁADNIA</a></li>
+  <li><a href="#OPIS">OPIS</a></li>
+  <li><a href="#OPCJE">OPCJE</a></li>
+  <li><a href="#PLIK-KONFIGURACYJNY">PLIK KONFIGURACYJNY</a>
+    <ul>
+      <li><a href="#OPCJE-GLOBALNE">OPCJE GLOBALNE</a></li>
+      <li><a href="#OPCJE-US-UG">OPCJE USŁUG</a></li>
+    </ul>
+  </li>
+  <li><a href="#ZWRACANA-WARTO">ZWRACANA WARTOŚĆ</a></li>
+  <li><a href="#SIGNA-Y">SIGNAŁY</a></li>
+  <li><a href="#PRZYK-ADY">PRZYKŁADY</a></li>
+  <li><a href="#NOTKI">NOTKI</a>
+    <ul>
+      <li><a href="#OGRANICZENIA">OGRANICZENIA</a></li>
+      <li><a href="#TRYB-INETD-tylko-Unix">TRYB INETD (tylko Unix)</a></li>
+      <li><a href="#CERTYFIKATY">CERTYFIKATY</a></li>
+      <li><a href="#LOSOWO">LOSOWOŚĆ</a></li>
+      <li><a href="#PARAMETRY-DH">PARAMETRY DH</a></li>
+    </ul>
+  </li>
+  <li><a href="#PLIKI">PLIKI</a></li>
+  <li><a href="#B-DY">BŁĘDY</a></li>
+  <li><a href="#ZOBACZ-R-WNIE">ZOBACZ RÓWNIEŻ</a></li>
+  <li><a href="#AUTOR">AUTOR</a></li>
+</ul>
+
+<a href="#_podtop_"><h1 id="NAZWA">NAZWA</h1></a>
+
+<p>stunnel - uniwersalny tunel protokołu TLS</p>
+
+<a href="#_podtop_"><h1 id="SK-ADNIA">SKŁADNIA</h1></a>
+
+<dl>
+
+<dt id="Unix"><b>Unix:</b></dt>
+<dd>
+
+<p><b>stunnel</b> [<span style="white-space: nowrap;">PLIK</span>] | <span style="white-space: nowrap;">-fd N</span> | <span style="white-space: nowrap;">-help</span> | <span style="white-space: nowrap;">-version</span> | <span style="white-space: nowrap;">-sockets</span> | <span style="white-space: nowrap;">-options</span></p>
+
+</dd>
+<dt id="WIN32"><b>WIN32:</b></dt>
+<dd>
+
+<p><b>stunnel</b> [ [ <span style="white-space: nowrap;">-install</span> | <span style="white-space: nowrap;">-uninstall</span> | <span style="white-space: nowrap;">-start</span> | <span style="white-space: nowrap;">-stop</span> | <span style="white-space: nowrap;">-reload</span> | <span style="white-space: nowrap;">-reopen</span> | <span style="white-space: nowrap;">-exit</span> ] [<span style="white-space: nowrap;">-quiet</span>] [<span style="white-space: nowrap;">PLIK</span>] ] | <span style="white-space: nowrap;">-help</span> | <span style="white-space: nowrap;">-version</span> | <span style="white-space: nowrap;">-sockets</span> | <span style="white-space: nowrap;">-options</span></p>
+
+</dd>
+</dl>
+
+<a href="#_podtop_"><h1 id="OPIS">OPIS</h1></a>
+
+<p>Program <b>stunnel</b> został zaprojektowany do opakowywania w protokół <i>TLS</i> połączeń pomiędzy zdalnymi klientami a lokalnymi lub zdalnymi serwerami. Przez serwer lokalny rozumiana jest aplikacja przeznaczona do uruchamiania przy pomocy <i>inetd</i>. Stunnel pozwala na proste zestawienie komunikacji serwerów nie posiadających funkcjonalności <i>TLS</i> poprzez bezpieczne kanały <i>TLS</i>.</p>
+
+<p><b>stunnel</b> pozwala dodać funkcjonalność <i>TLS</i> do powszechnie stosowanych demonów <i>inetd</i>, np. <i>pop3</i> lub <i>imap</i>, do samodzielnych demonów, np. <i>nntp</i>, <i>smtp</i> lub <i>http</i>, a nawet tunelować ppp poprzez gniazda sieciowe bez zmian w kodzie źródłowym.</p>
+
+<a href="#_podtop_"><h1 id="OPCJE">OPCJE</h1></a>
+
+<dl>
+
+<dt id="PLIK"><b>PLIK</b></dt>
+<dd>
+
+<p>użyj podanego pliku konfiguracyjnego</p>
+
+</dd>
+<dt id="fd-N-tylko-Unix"><b>-fd N</b> (tylko Unix)</dt>
+<dd>
+
+<p>wczytaj konfigurację z podanego deskryptora pliku</p>
+
+</dd>
+<dt id="help"><b>-help</b></dt>
+<dd>
+
+<p>drukuj listę wspieranych opcji</p>
+
+</dd>
+<dt id="version"><b>-version</b></dt>
+<dd>
+
+<p>drukuj wersję programu i domyślne wartości parametrów</p>
+
+</dd>
+<dt id="sockets"><b>-sockets</b></dt>
+<dd>
+
+<p>drukuj domyślne opcje gniazd</p>
+
+</dd>
+<dt id="options"><b>-options</b></dt>
+<dd>
+
+<p>drukuj wspierane opcje TLS</p>
+
+</dd>
+<dt id="install-tylko-Windows-NT-lub-nowszy"><b>-install</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>instaluj serwis NT</p>
+
+</dd>
+<dt id="uninstall-tylko-Windows-NT-lub-nowszy"><b>-uninstall</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>odinstaluj serwis NT</p>
+
+</dd>
+<dt id="start-tylko-Windows-NT-lub-nowszy"><b>-start</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>uruchom serwis NT</p>
+
+</dd>
+<dt id="stop-tylko-Windows-NT-lub-nowszy"><b>-stop</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>zatrzymaj serwis NT</p>
+
+</dd>
+<dt id="reload-tylko-Windows-NT-lub-nowszy"><b>-reload</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>przeładuj plik konfiguracyjny uruchomionego serwisu NT</p>
+
+</dd>
+<dt id="reopen-tylko-Windows-NT-lub-nowszy"><b>-reopen</b> (tylko Windows NT lub nowszy)</dt>
+<dd>
+
+<p>otwórz ponownie log uruchomionego serwisu NT</p>
+
+</dd>
+<dt id="exit-tylko-Win32"><b>-exit</b> (tylko Win32)</dt>
+<dd>
+
+<p>zatrzymaj uruchomiony program</p>
+
+</dd>
+<dt id="quiet-tylko-Win32"><b>-quiet</b> (tylko Win32)</dt>
+<dd>
+
+<p>nie wyświetlaj okienek z komunikatami</p>
+
+</dd>
+</dl>
+
+<a href="#_podtop_"><h1 id="PLIK-KONFIGURACYJNY">PLIK KONFIGURACYJNY</h1></a>
+
+<p>Linia w pliku konfiguracyjnym może być:</p>
+
+<ul>
+
+<li><p>pusta (ignorowana)</p>
+
+</li>
+<li><p>komentarzem rozpoczynającym się znakiem &#39;;&#39; (ignorowana)</p>
+
+</li>
+<li><p>parą &#39;nazwa_opcji = wartość_opcji&#39;</p>
+
+</li>
+<li><p>tekstem &#39;[nazwa_usługi]&#39; wskazującym początek definicji usługi</p>
+
+</li>
+</ul>
+
+<p>Parametr adres może być:</p>
+
+<ul>
+
+<li><p>numerem portu</p>
+
+</li>
+<li><p>oddzieloną średnikiem parą adresu (IPv4, IPv6, lub nazwą domenową) i numeru portu</p>
+
+</li>
+<li><p>ścieżką do gniazda Unix (tylko Unix)</p>
+
+</li>
+</ul>
+
+<h2 id="OPCJE-GLOBALNE">OPCJE GLOBALNE</h2>
+
+<dl>
+
+<dt id="chroot-KATALOG-tylko-Unix"><b>chroot</b> = KATALOG (tylko Unix)</dt>
+<dd>
+
+<p>katalog roboczego korzenia systemu plików</p>
+
+<p>Opcja określa katalog, w którym uwięziony zostanie proces programu <b>stunnel</b> tuż po jego inicjalizacji, a przed rozpoczęciem odbierania połączeń. Ścieżki podane w opcjach <i>CApath</i>, <i>CRLpath</i>, <i>pid</i> oraz <i>exec</i> muszą być umieszczone wewnątrz katalogu podanego w opcji <i>chroot</i> i określone względem tego katalogu.</p>
+
+<p>Niektóre funkcje systemu operacyjnego mogą wymagać dodatkowych plików umieszczonych w katalogu podanego w parametrze chroot:</p>
+
+<ul>
+
+<li><p>opóźnione rozwinięcie adresów DNS typowo wymaga /etc/nsswitch.conf i /etc/resolv.conf</p>
+
+</li>
+<li><p>lokalizacja strefy czasowej w logach wymaga pliku /etc/timezone</p>
+
+</li>
+<li><p>niektóre inne pliki mogą potrzebować plików urządzeń, np. /dev/zero lub /dev/null</p>
+
+</li>
+</ul>
+
+</dd>
+<dt id="compression-deflate-zlib"><b>compression</b> = deflate | zlib</dt>
+<dd>
+
+<p>wybór algorytmu kompresji przesyłanych danych</p>
+
+<p>domyślnie: bez kompresji</p>
+
+<p>Algorytm deflate jest standardową metodą kompresji zgodnie z RFC 1951.</p>
+
+</dd>
+<dt id="debug-PODSYSTEM-.POZIOM"><b>debug</b> = [PODSYSTEM].POZIOM</dt>
+<dd>
+
+<p>szczegółowość logowania</p>
+
+<p>Poziom logowania można określić przy pomocy jednej z nazw lub liczb: emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6) lub debug (7). Zapisywane są komunikaty o poziomie niższym (numerycznie) lub równym podanemu. Domyślnym poziomem jest notice (5).</p>
+
+<p>Jakkolwiek użycie <i>debug = debug</i> lub <i>debug = 7</i> zapewnia najbardziej szczegółowe logi, ich zawartość jest użyteczna jedynie dla programistów zajmujących się stunnelem. Użyj tego poziomu logowania jedynie jeśli jesteś programistką/programistą stunnela, albo przygotowujesz szczegółowe informacje celem przesłania do wsparcia technicznego. W przeciwnym wypadku próba analizy zawartości logów <b>będzie</b> jedynie źródłem dodatkowego zamieszania.</p>
+
+<p>O ile nie wyspecyfikowano podsystemu użyty będzie domyślny: daemon. Podsystemy nie są wspierane przez platformę Win32.</p>
+
+<p>Wielkość liter jest ignorowana zarówno dla poziomu jak podsystemu.</p>
+
+</dd>
+<dt id="EGD-CIE-KA_DO_EGD-tylko-Unix"><b>EGD</b> = ŚCIEŻKA_DO_EGD (tylko Unix)</dt>
+<dd>
+
+<p>ścieżka do gniazda programu Entropy Gathering Daemon</p>
+
+<p>Opcja pozwala określić ścieżkę do gniazda programu Entropy Gathering Daemon używanego do zainicjalizowania generatora ciągów pseudolosowych biblioteki <b>OpenSSL</b>.</p>
+
+</dd>
+<dt id="engine-auto-IDENTYFIKATOR_URZ-DZENIA"><b>engine</b> = auto | IDENTYFIKATOR_URZĄDZENIA</dt>
+<dd>
+
+<p>wybór sprzętowego urządzenia kryptograficznego</p>
+
+<p>domyślnie: bez wykorzystania urządzeń kryptograficznych</p>
+
+<p>Sekcja PRZYKŁADY zawiera przykładowe konfiguracje wykorzystujące urządzenia kryptograficzne.</p>
+
+</dd>
+<dt id="engineCtrl-KOMENDA-:PARAMETR"><b>engineCtrl</b> = KOMENDA[:PARAMETR]</dt>
+<dd>
+
+<p>konfiguracja urządzenia kryptograficznego</p>
+
+</dd>
+<dt id="engineDefault-LISTA_ZADA"><b>engineDefault</b> = LISTA_ZADAŃ</dt>
+<dd>
+
+<p>lista zadań OpenSSL oddelegowanych do bieżącego urządzenia</p>
+
+<p>Parametrem jest lista oddzielonych przecinkami zadań OpenSSL, które mają zostać oddelegowane do bieżącego urządzenia kryptograficznego.</p>
+
+<p>W zależności od konkretnego urządzenia dostępne mogą być następujące zadania: ALL, RSA, DSA, ECDH, ECDSA, DH, RAND, CIPHERS, DIGESTS, PKEY, PKEY_CRYPTO, PKEY_ASN1.</p>
+
+</dd>
+<dt id="fips-yes-no"><b>fips</b> = yes | no</dt>
+<dd>
+
+<p>tryb FIPS 140-2</p>
+
+<p>Opcja pozwala wyłączyć wejście w tryb FIPS, jeśli <b>stunnel</b> został skompilowany ze wsparciem dla FIPS 140-2.</p>
+
+<p>domyślnie: no (od wersji 5.00)</p>
+
+</dd>
+<dt id="foreground-yes-quiet-no-tylko-Unix"><b>foreground</b> = yes | quiet | no (tylko Unix)</dt>
+<dd>
+
+<p>tryb pierwszoplanowy</p>
+
+<p>Użycie tej opcji powoduje, że <b>stunnel</b> nie przechodzi w tło.</p>
+
+<p>Parametr <i>yes</i> powoduje dodatkowo, że komunikaty diagnostyczne logowane są na standardowy strumień błędów (stderr) oprócz wyjść zdefiniowanych przy pomocy opcji <i>syslog</i> i <i>output</i>.</p>
+
+</dd>
+<dt id="iconActive-PLIK_Z_IKONK-tylko-GUI"><b>iconActive</b> = PLIK_Z_IKONKĄ (tylko GUI)</dt>
+<dd>
+
+<p>ikonka wyświetlana przy obecności aktywnych połączeń do usługi</p>
+
+<p>W systemie Windows ikonka to plik .ico zawierający obrazek 16x16 pikseli.</p>
+
+</dd>
+<dt id="iconError-PLIK_Z_IKONK-tylko-GUI"><b>iconError</b> = PLIK_Z_IKONKĄ (tylko GUI)</dt>
+<dd>
+
+<p>ikonka wyświetlana, jeżeli nie został załadowany poprawny plik konfiguracyjny</p>
+
+<p>W systemie Windows ikonka to plik .ico zawierający obrazek 16x16 pikseli.</p>
+
+</dd>
+<dt id="iconIdle-PLIK_Z_IKONK-tylko-GUI"><b>iconIdle</b> = PLIK_Z_IKONKĄ (tylko GUI)</dt>
+<dd>
+
+<p>ikonka wyświetlana przy braku aktywnych połączeń do usługi</p>
+
+<p>W systemie Windows ikonka to plik .ico zawierający obrazek 16x16 pikseli.</p>
+
+</dd>
+<dt id="log-append-overwrite"><b>log</b> = append | overwrite</dt>
+<dd>
+
+<p>obsługa logów</p>
+
+<p>Ta opcja pozwala określić, czy nowe logi w pliku (określonym w opcji <i>output</i>) będą dodawane czy nadpisywane.</p>
+
+<p>domyślnie: append</p>
+
+</dd>
+<dt id="output-PLIK"><b>output</b> = PLIK</dt>
+<dd>
+
+<p>plik, do którego dopisane zostaną logi</p>
+
+<p>Użycie tej opcji powoduje dopisanie logów do podanego pliku.</p>
+
+<p>Do kierowania komunikatów na standardowe wyjście (na przykład po to, żeby zalogować je programem splogger z pakietu daemontools) można podać jako parametr urządzenie /dev/stdout.</p>
+
+</dd>
+<dt id="pid-PLIK-tylko-Unix"><b>pid</b> = PLIK (tylko Unix)</dt>
+<dd>
+
+<p>położenie pliku z numerem procesu</p>
+
+<p>Jeżeli argument jest pusty, plik nie zostanie stworzony.</p>
+
+<p>Jeżeli zdefiniowano katalog <i>chroot</i>, to ścieżka do <i>pid</i> jest określona względem tego katalogu.</p>
+
+</dd>
+<dt id="RNDbytes-LICZBA_BAJT-W"><b>RNDbytes</b> = LICZBA_BAJTÓW</dt>
+<dd>
+
+<p>liczba bajtów do zainicjowania generatora pseudolosowego</p>
+
+</dd>
+<dt id="RNDfile-PLIK"><b>RNDfile</b> = PLIK</dt>
+<dd>
+
+<p>ścieżka do pliku zawierającego losowe dane</p>
+
+<p>Biblioteka <b>OpenSSL</b> użyje danych z tego pliku do zainicjowania generatora pseudolosowego.</p>
+
+</dd>
+<dt id="RNDoverwrite-yes-no"><b>RNDoverwrite</b> = yes | no</dt>
+<dd>
+
+<p>nadpisz plik nowymi wartościami pseudolosowymi</p>
+
+<p>domyślnie: yes (nadpisz)</p>
+
+</dd>
+<dt id="service-SERWIS-tylko-Unix"><b>service</b> = SERWIS (tylko Unix)</dt>
+<dd>
+
+<p>nazwa usługi</p>
+
+<p>Podana nazwa usługi będzie używana jako nazwa usługi dla inicjalizacji sysloga, oraz dla biblioteki TCP Wrapper w trybie <i>inetd</i>. Chociaż technicznie można użyć tej opcji w trybie w sekcji usług, to jest ona użyteczna jedynie w opcjach globalnych.</p>
+
+<p>domyślnie: stunnel</p>
+
+</dd>
+<dt id="syslog-yes-no-tylko-Unix"><b>syslog</b> = yes | no (tylko Unix)</dt>
+<dd>
+
+<p>włącz logowanie poprzez mechanizm syslog</p>
+
+<p>domyślnie: yes (włącz)</p>
+
+</dd>
+<dt id="taskbar-yes-no-tylko-WIN32"><b>taskbar</b> = yes | no (tylko WIN32)</dt>
+<dd>
+
+<p>włącz ikonkę w prawym dolnym rogu ekranu</p>
+
+<p>domyślnie: yes (włącz)</p>
+
+</dd>
+</dl>
+
+<h2 id="OPCJE-US-UG">OPCJE USŁUG</h2>
+
+<p>Każda sekcja konfiguracji usługi zaczyna się jej nazwą ujętą w nawias kwadratowy. Nazwa usługi używana jest do kontroli dostępu przez bibliotekę libwrap (TCP wrappers) oraz pozwala rozróżnić poszczególne usługi w logach.</p>
+
+<p>Jeżeli <b>stunnel</b> ma zostać użyty w trybie <i>inetd</i>, gdzie za odebranie połączenia odpowiada osobny program (zwykle <i>inetd</i>, <i>xinetd</i> lub <i>tcpserver</i>), należy przeczytać sekcję <i>TRYB INETD</i> poniżej.</p>
+
+<dl>
+
+<dt id="accept-HOST:-PORT"><b>accept</b> = [HOST:]PORT</dt>
+<dd>
+
+<p>nasłuchuje na połączenia na podanym adresie i porcie</p>
+
+<p>Jeżeli nie został podany adres, <b>stunnel</b> domyślnie nasłuchuje na wszystkich adresach IPv4 lokalnych interfejsów.</p>
+
+<p>Aby nasłuchiwać na wszystkich adresach IPv6 należy użyć:</p>
+
+<pre><code>    accept = :::port</code></pre>
+
+</dd>
+<dt id="CApath-KATALOG_CA"><b>CApath</b> = KATALOG_CA</dt>
+<dd>
+
+<p>katalog Centrum Certyfikacji</p>
+
+<p>Opcja określa katalog, w którym <b>stunnel</b> będzie szukał certyfikatów, jeżeli użyta została opcja <i>verifyChain</i> lub <i>verifyPeer</i>. Pliki z certyfikatami muszą posiadać specjalne nazwy XXXXXXXX.0, gdzie XXXXXXXX jest skrótem kryptograficznym reprezentacji DER nazwy podmiotu certyfikatu.</p>
+
+<p>Funkcja skrótu została zmieniona w <b>OpenSSL 1.0.0</b>. Należy wykonać c_rehash przy zmianie <b>OpenSSL 0.x.x</b> na <b>1.x.x</b>.</p>
+
+<p>Jeżeli zdefiniowano katalog <i>chroot</i>, to ścieżka do <i>CApath</i> jest określona względem tego katalogu.</p>
+
+</dd>
+<dt id="CAfile-PLIK_CA"><b>CAfile</b> = PLIK_CA</dt>
+<dd>
+
+<p>plik Centrum Certyfikacji</p>
+
+<p>Opcja pozwala określić położenie pliku zawierającego certyfikaty używane przez opcję <i>verifyChain</i> lub <i>verifyPeer</i>.</p>
+
+</dd>
+<dt id="cert-PLIK_CERT"><b>cert</b> = PLIK_CERT</dt>
+<dd>
+
+<p>plik z łańcuchem certyfikatów</p>
+
+<p>Opcja określa położenie pliku zawierającego certyfikaty używane przez program <b>stunnel</b> do uwierzytelnienia się przed drugą stroną połączenia. Plik powinien zawierać kompletny łańcuch certyfikatów począwszy od certyfikatu klienta/serwera, a skończywszy na samopodpisanym certyfikacie głównego CA. Obsługiwane są pliki w formacie PEM lub P12.</p>
+
+<p>Certyfikat jest konieczny, aby używać programu w trybie serwera. W trybie klienta certyfikat jest opcjonalny.</p>
+
+<p>Jeżeli używane jest sprzętowe urządzenie kryptograficzne, to opcja <b>cert</b> pozwala wybrać identyfikator używanego certyfikatu.</p>
+
+</dd>
+<dt id="checkEmail-EMAIL"><b>checkEmail</b> = EMAIL</dt>
+<dd>
+
+<p>adres email podmiotu przedstawionego certyfikatu</p>
+
+<p>Pojedyncza sekcja może zawierać wiele wystąpień opcji <b>checkEmail</b>. Certyfikaty są akceptowane, jeżeli sekcja nie weryfikuje podmiotu certyfikatu, albo adres email przedstawionego certyfikatu pasuje do jednego z adresów email określonych przy pomocy <b>checkEmail</b>.</p>
+
+<p>Opcja ta wymaga biblioteki OpenSSL w wersji 1.0.2 lub nowszej.</p>
+
+</dd>
+<dt id="checkHost-NAZWA_SERWERA"><b>checkHost</b> = NAZWA_SERWERA</dt>
+<dd>
+
+<p>nazwa serwera podmiotu przedstawionego certyfikatu</p>
+
+<p>Pojedyncza sekcja może zawierać wiele wystąpień opcji <b>checkHost</b>. Certyfikaty są akceptowane, jeżeli sekcja nie weryfikuje podmiotu certyfikatu, albo nazwa serwera przedstawionego certyfikatu pasuje do jednego nazw określonych przy pomocy <b>checkHost</b>.</p>
+
+<p>Opcja ta wymaga biblioteki OpenSSL w wersji 1.0.2 lub nowszej.</p>
+
+</dd>
+<dt id="checkIP-IP"><b>checkIP</b> = IP</dt>
+<dd>
+
+<p>adres IP podmiotu przedstawionego certyfikatu</p>
+
+<p>Pojedyncza sekcja może zawierać wiele wystąpień opcji <b>checkIP</b>. Certyfikaty są akceptowane, jeżeli sekcja nie weryfikuje podmiotu certyfikatu, albo adres IP przedstawionego certyfikatu pasuje do jednego z adresów IP określonych przy pomocy <b>checkIP</b>.</p>
+
+<p>Opcja ta wymaga biblioteki OpenSSL w wersji 1.0.2 lub nowszej.</p>
+
+</dd>
+<dt id="ciphers-LISTA_SZYFR-W"><b>ciphers</b> = LISTA_SZYFRÓW</dt>
+<dd>
+
+<p>lista dozwolonych szyfrów dla protokołów SSLv2, SSLv3, TLSv1, TLSv1.1, TLSv1.2</p>
+
+<p>Ta opcja nie wpływa na listę parametrów kryptograficznych dla protokołu TLSv1.3</p>
+
+<p>Parametrem tej opcji jest lista szyfrów, które będą użyte przy otwieraniu nowych połączeń TLS, np.: DES-CBC3-SHA:IDEA-CBC-MD5</p>
+
+</dd>
+<dt id="ciphersuites-LISTA_PARAMETR-W_KRYPTOGRAFICZNYCH"><b>ciphersuites</b> = LISTA_PARAMETRÓW_KRYPTOGRAFICZNYCH</dt>
+<dd>
+
+<p>lista dozwolonych parametrów kryptograficznych dla protokołu TLSv1.3</p>
+
+<p>Parametrem tej opcji są listy parametrów kryptograficznych w kolejności ich preferowania.</p>
+
+<p>Opcja <i>ciphersuites</i> jest dostępna począwszy od <b>OpenSSL 1.1.1</b>.</p>
+
+<p>domyślnie: TLS_CHACHA20_POLY1305_SHA256: TLS_AES_256_GCM_SHA384: TLS_AES_128_GCM_SHA256</p>
+
+</dd>
+<dt id="client-yes-no"><b>client</b> = yes | no</dt>
+<dd>
+
+<p>tryb kliencki (zdalna usługa używa TLS)</p>
+
+<p>domyślnie: no (tryb serwerowy)</p>
+
+</dd>
+<dt id="config-KOMENDA-:PARAMETR"><b>config</b> = KOMENDA[:PARAMETR]</dt>
+<dd>
+
+<p>komenda konfiguracyjna <b>OpenSSL</b></p>
+
+<p>Komenda konfiguracyjna <b>OpenSSL</b> zostaje wykonana z podanym parametrem. Pozwala to na wydawanie komend konfiguracyjnych <b>OpenSSL</b> z pliku konfiguracyjnego stunnela. Dostępne komendy opisane są w podręczniku <i>SSL_CONF_cmd(3ssl)</i>.</p>
+
+<p>Możliwe jest wyspecyfikowanie wielu opcji <b>OpenSSL</b> przez wielokrotne użycie komendy <b>config</b>.</p>
+
+<p>Zamiast wyłączać <i>config = Curves:list_curves</i> użyj opcji <i>curves</i> w celu ustawienia krzywych eliptycznych.</p>
+
+<p>Opcja ta wymaga biblioteki OpenSSL w wersji 1.0.2 lub nowszej.</p>
+
+</dd>
+<dt id="connect-HOST:-PORT"><b>connect</b> = [HOST:]PORT</dt>
+<dd>
+
+<p>połącz się ze zdalnym serwerem na podany port</p>
+
+<p>Jeżeli nie został podany adres, <b>stunnel</b> domyślnie łączy się z lokalnym serwerem.</p>
+
+<p>Komenda może być użyta wielokrotnie w pojedynczej sekcji celem zapewnienia wysokiej niezawodności lub rozłożenia ruchu pomiędzy wiele serwerów.</p>
+
+</dd>
+<dt id="CRLpath-KATALOG_CRL"><b>CRLpath</b> = KATALOG_CRL</dt>
+<dd>
+
+<p>katalog List Odwołanych Certyfikatów (CRL)</p>
+
+<p>Opcja określa katalog, w którym <b>stunnel</b> będzie szukał list CRL używanych przez opcje <i>verifyChain</i> i <i>verifyPeer</i>. Pliki z listami CRL muszą posiadać specjalne nazwy XXXXXXXX.r0, gdzie XXXXXXXX jest skrótem listy CRL.</p>
+
+<p>Funkcja skrótu została zmieniona <b>OpenSSL 1.0.0</b>. Należy wykonać c_rehash przy zmianie <b>OpenSSL 0.x.x</b> na <b>1.x.x</b>.</p>
+
+<p>Jeżeli zdefiniowano katalog <i>chroot</i>, to ścieżka do <i>CRLpath</i> jest określona względem tego katalogu.</p>
+
+</dd>
+<dt id="CRLfile-PLIK_CRL"><b>CRLfile</b> = PLIK_CRL</dt>
+<dd>
+
+<p>plik List Odwołanych Certyfikatów (CRL)</p>
+
+<p>Opcja pozwala określić położenie pliku zawierającego listy CRL używane przez opcje <i>verifyChain</i> i <i>verifyPeer</i>.</p>
+
+</dd>
+<dt id="curves-lista"><b>curves</b> = lista</dt>
+<dd>
+
+<p>krzywe ECDH odddzielone &#39;:&#39;</p>
+
+<p>Wersje OpenSSL starsze niż 1.1.1 pozwalają na użycie tylko jednej krzywej.</p>
+
+<p>Listę dostępnych krzywych można uzyskać poleceniem:</p>
+
+<pre><code>    openssl ecparam -list_curves</code></pre>
+
+<p>domyślnie:</p>
+
+<pre><code>    X25519:P-256:X448:P-521:P-384 (począwszy od OpenSSL 1.1.1)
+
+    prime256v1 (OpenSSL starszy niż 1.1.1)</code></pre>
+
+</dd>
+<dt id="logId-TYP"><b>logId</b> = TYP</dt>
+<dd>
+
+<p>typ identyfikatora połączenia klienta</p>
+
+<p>Identyfikator ten pozwala rozróżnić wpisy w logu wygenerowane dla poszczególnych połączeń.</p>
+
+<p>Aktualnie wspierane typy:</p>
+
+<dl>
+
+<dt id="sequential"><i>sequential</i></dt>
+<dd>
+
+<p>Kolejny numer połączenia jest unikalny jedynie w obrębie pojedynczej instancji programu <b>stunnel</b>, ale bardzo krótki. Jest on szczególnie użyteczny przy ręcznej analizie logów.</p>
+
+</dd>
+<dt id="unique"><i>unique</i></dt>
+<dd>
+
+<p>Ten rodzaj identyfikatora jest globalnie unikalny, ale znacznie dłuższy, niż kolejny numer połączenia. Jest on szczególnie użyteczny przy zautomatyzowanej analizie logów.</p>
+
+</dd>
+<dt id="thread"><i>thread</i></dt>
+<dd>
+
+<p>Identyfikator wątku systemu operacyjnego nie jest ani unikalny (nawet w obrębie pojedynczej instancji programu <b>stunnel</b>), ani krótki. Jest on szczególnie użyteczny przy diagnozowaniu problemów z oprogramowaniem lub konfiguracją.</p>
+
+</dd>
+<dt id="process"><i>process</i></dt>
+<dd>
+
+<p>Identyfikator procesu (PID) może być użyteczny w trybie inetd.</p>
+
+</dd>
+</dl>
+
+<p>domyślnie: sequential</p>
+
+</dd>
+<dt id="debug-POZIOM"><b>debug</b> = POZIOM</dt>
+<dd>
+
+<p>szczegółowość logowania</p>
+
+<p>Poziom logowania można określić przy pomocy jednej z nazw lub liczb: emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6) lub debug (7). Zapisywane są komunikaty o poziomie niższym (numerycznie) lub równym podanemu. Do uzyskania najwyższego poziomu szczegółowości można użyć opcji <i>debug = debug</i> lub <i>debug = 7</i>. Domyślnym poziomem jest notice (5).</p>
+
+</dd>
+<dt id="delay-yes-no"><b>delay</b> = yes | no</dt>
+<dd>
+
+<p>opóźnij rozwinięcie adresu DNS podanego w opcji <i>connect</i></p>
+
+<p>Opcja jest przydatna przy dynamicznym DNS, albo gdy usługa DNS nie jest dostępna przy starcie programu <b>stunnel</b> (klient VPN, połączenie wdzwaniane).</p>
+
+<p>Opóźnione rozwijanie adresu DNS jest włączane automatycznie, jeżeli nie powiedzie się rozwinięcie któregokolwiek z adresów <i>connect</i> dla danej usługi.</p>
+
+<p>Opóźnione rozwijanie adresu automatycznie aktywuje <i>failover = prio</i>.</p>
+
+<p>domyślnie: no</p>
+
+</dd>
+<dt id="engineId-NUMER_URZ-DZENIA"><b>engineId</b> = NUMER_URZĄDZENIA</dt>
+<dd>
+
+<p>wybierz urządzenie dla usługi</p>
+
+</dd>
+<dt id="engineNum-NUMER_URZ-DZENIA"><b>engineNum</b> = NUMER_URZĄDZENIA</dt>
+<dd>
+
+<p>wybierz urządzenie dla usługi</p>
+
+<p>Urządzenia są numerowane od 1 w górę.</p>
+
+</dd>
+<dt id="exec-CIE-KA_DO_PROGRAMU"><b>exec</b> = ŚCIEŻKA_DO_PROGRAMU</dt>
+<dd>
+
+<p>wykonaj lokalny program przystosowany do pracy z superdemonem inetd</p>
+
+<p>Jeżeli zdefiniowano katalog <i>chroot</i>, to ścieżka do <i>exec</i> jest określona względem tego katalogu.</p>
+
+<p>Na platformach Unix ustawiane są następujące zmienne środowiskowe: REMOTE_HOST, REMOTE_PORT, SSL_CLIENT_DN, SSL_CLIENT_I_DN.</p>
+
+</dd>
+<dt id="execArgs-0-1-2"><b>execArgs</b> = $0 $1 $2 ...</dt>
+<dd>
+
+<p>argumenty do opcji <i>exec</i> włącznie z nazwą programu ($0)</p>
+
+<p>Cytowanie nie jest wspierane w obecnej wersji programu. Argumenty są rozdzielone dowolną liczbą białych znaków.</p>
+
+</dd>
+<dt id="failover-rr-prio"><b>failover</b> = rr | prio</dt>
+<dd>
+
+<p>Strategia wybierania serwerów wyspecyfikowanych parametrami &quot;connect&quot;.</p>
+
+<dl>
+
+<dt id="rr"><i>rr</i></dt>
+<dd>
+
+<p>round robin - sprawiedliwe rozłożenie obciążenia</p>
+
+</dd>
+<dt id="prio"><i>prio</i></dt>
+<dd>
+
+<p>priority - użyj kolejności opcji w pliku konfiguracyjnym</p>
+
+</dd>
+</dl>
+
+<p>domyślnie: prio</p>
+
+</dd>
+<dt id="ident-NAZWA_U-YTKOWNIKA"><b>ident</b> = NAZWA_UŻYTKOWNIKA</dt>
+<dd>
+
+<p>weryfikuj nazwę zdalnego użytkownika korzystając z protokołu IDENT (RFC 1413)</p>
+
+</dd>
+<dt id="include-KATALOG"><b>include</b> = KATALOG</dt>
+<dd>
+
+<p>wczytaj fragmenty plików konfiguracyjnych z podanego katalogu</p>
+
+<p>Pliki są wczytywane w rosnącej kolejności alfabetycznej ich nazw. Rekomendowana konwencja nazewnictwa plików</p>
+
+<p>dla opcji globalnych:</p>
+
+<pre><code>        00-global.conf</code></pre>
+
+<p>dla lokalnych opcji usług:</p>
+
+<pre><code>        01-service.conf
+
+        02-service.conf</code></pre>
+
+</dd>
+<dt id="key-PLIK_KLUCZA"><b>key</b> = PLIK_KLUCZA</dt>
+<dd>
+
+<p>klucz prywatny do certyfikatu podanego w opcji <i>cert</i></p>
+
+<p>Klucz prywatny jest potrzebny do uwierzytelnienia właściciela certyfikatu. Ponieważ powinien on być zachowany w tajemnicy, prawa do jego odczytu powinien mieć wyłącznie właściciel pliku. W systemie Unix można to osiągnąć komendą:</p>
+
+<pre><code>    chmod 600 keyfile</code></pre>
+
+<p>Jeżeli używane jest sprzętowe urządzenie kryptograficzne, to opcja <b>key</b> pozwala wybrać identyfikator używanego klucza prywatnego.</p>
+
+<p>domyślnie: wartość opcji <i>cert</i></p>
+
+</dd>
+<dt id="libwrap-yes-no"><b>libwrap</b> = yes | no</dt>
+<dd>
+
+<p>włącz lub wyłącz korzystanie z /etc/hosts.allow i /etc/hosts.deny.</p>
+
+<p>domyślnie: no (od wersji 5.00)</p>
+
+</dd>
+<dt id="local-HOST"><b>local</b> = HOST</dt>
+<dd>
+
+<p>IP źródła do nawiązywania zdalnych połączeń</p>
+
+<p>Domyślnie używane jest IP najbardziej zewnętrznego interfejsu w stronę serwera, do którego nawiązywane jest połączenie.</p>
+
+</dd>
+<dt id="OCSP-URL"><b>OCSP</b> = URL</dt>
+<dd>
+
+<p>responder OCSP do weryfikacji certyfikatów</p>
+
+</dd>
+<dt id="OCSPaia-yes-no"><b>OCSPaia</b> = yes | no</dt>
+<dd>
+
+<p>weryfikuj certyfikaty przy użyciu respondertów AIA</p>
+
+<p>Opcja <i>OCSPaia</i> pozwala na weryfikowanie certyfikatów przy pomocy listy URLi responderów OCSP przesłanych w rozszerzeniach AIA (Authority Information Access).</p>
+
+</dd>
+<dt id="OCSPflag-FLAGA_OCSP"><b>OCSPflag</b> = FLAGA_OCSP</dt>
+<dd>
+
+<p>flaga respondera OCSP</p>
+
+<p>Aktualnie wspierane flagi: NOCERTS, NOINTERN, NOSIGS, NOCHAIN, NOVERIFY, NOEXPLICIT, NOCASIGN, NODELEGATED, NOCHECKS, TRUSTOTHER, RESPID_KEY, NOTIME</p>
+
+<p>Aby wyspecyfikować kilka flag należy użyć <i>OCSPflag</i> wielokrotnie.</p>
+
+</dd>
+<dt id="OCSPnonce-yes-no"><b>OCSPnonce</b> = yes | no</dt>
+<dd>
+
+<p>wysyłaj i weryfikuj OCSP nonce</p>
+
+<p>Opcja <b>OCSPnonce</b> zabezpiecza protokół OCSP przed atakami powtórzeniowymi. Ze względu na złożoność obliczeniową rozszerzenie nonce jest zwykle wspierane jedynie przez wewnętrzne (np. korporacyjne), a nie przez publiczne respondery OCSP.</p>
+
+</dd>
+<dt id="options-OPCJE_SSL"><b>options</b> = OPCJE_SSL</dt>
+<dd>
+
+<p>opcje biblioteki <b>OpenSSL</b></p>
+
+<p>Parametrem jest nazwa opcji zgodnie z opisem w <i>SSL_CTX_set_options(3ssl)</i>, ale bez przedrostka <i>SSL_OP_</i>. <i>stunnel -options</i> wyświetla opcje dozwolone w aktualnej kombinacji programu <i>stunnel</i> i biblioteki <i>OpenSSL</i>.</p>
+
+<p>Aby wyspecyfikować kilka opcji należy użyć <i>options</i> wielokrotnie. Nazwa opcji może być poprzedzona myślnikiem (&quot;-&quot;) celem wyłączenia opcji.</p>
+
+<p>Na przykład, dla zachowania kompatybilności z błędami implementacji TLS w programie Eudora, można użyć opcji:</p>
+
+<pre><code>    options = DONT_INSERT_EMPTY_FRAGMENTS</code></pre>
+
+<p>domyślnie:</p>
+
+<pre><code>    options = NO_SSLv2
+    options = NO_SSLv3</code></pre>
+
+<p>Począwszy od <b>OpenSSL 1.1.0</b>, zamiast wyłączać określone wersje protokołów TLS użyj opcji <i>sslVersionMax</i> lub <i>sslVersionMin</i>.</p>
+
+</dd>
+<dt id="protocol-PROTOK"><b>protocol</b> = PROTOKÓŁ</dt>
+<dd>
+
+<p>negocjuj TLS podanym protokołem aplikacyjnym</p>
+
+<p>Opcja ta włącza wstępną negocjację szyfrowania TLS dla wybranego protokołu aplikacyjnego. Opcji <i>protocol</i> nie należy używać z szyfrowaniem TLS na osobnym porcie.</p>
+
+<p>Aktualnie wspierane protokoły:</p>
+
+<dl>
+
+<dt id="cifs"><i>cifs</i></dt>
+<dd>
+
+<p>Nieudokumentowane rozszerzenie protokołu CIFS wspierane przez serwer Samba. Wsparcie dla tego rozszerzenia zostało zarzucone w wersji 3.0.0 serwera Samba.</p>
+
+</dd>
+<dt id="capwin"><i>capwin</i></dt>
+<dd>
+
+<p>Wsparcie dla aplikacji http://www.capwin.org/</p>
+
+</dd>
+<dt id="capwinctrl"><i>capwinctrl</i></dt>
+<dd>
+
+<p>Wsparcie dla aplikacji http://www.capwin.org/</p>
+
+<p>Ten protokół jest wspierany wyłącznie w trybie klienckim.</p>
+
+</dd>
+<dt id="connect"><i>connect</i></dt>
+<dd>
+
+<p>Negocjacja RFC 2817 - <i>Upgrading to TLS Within HTTP/1.1</i>, rozdział 5.2 - <i>Requesting a Tunnel with CONNECT</i></p>
+
+<p>Ten protokół jest wspierany wyłącznie w trybie klienckim.</p>
+
+</dd>
+<dt id="imap"><i>imap</i></dt>
+<dd>
+
+<p>Negocjacja RFC 2595 - <i>Using TLS with IMAP, POP3 and ACAP</i></p>
+
+</dd>
+<dt id="ldap"><i>ldap</i></dt>
+<dd>
+
+<p>Negocjacja RFC 2830 - <i>Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security</i></p>
+
+</dd>
+<dt id="nntp"><i>nntp</i></dt>
+<dd>
+
+<p>Negocjacja RFC 4642 - <i>Using Transport Layer Security (TLS) with Network News Transfer Protocol (NNTP)</i></p>
+
+<p>Ten protokół jest wspierany wyłącznie w trybie klienckim.</p>
+
+</dd>
+<dt id="pgsql"><i>pgsql</i></dt>
+<dd>
+
+<p>Negocjacja <i>http://www.postgresql.org/docs/8.3/static/protocol-flow.html#AEN73982</i></p>
+
+</dd>
+<dt id="pop3"><i>pop3</i></dt>
+<dd>
+
+<p>Negocjacja RFC 2449 - <i>POP3 Extension Mechanism</i></p>
+
+</dd>
+<dt id="proxy"><i>proxy</i></dt>
+<dd>
+
+<p>Przekazywanie oryginalnego IP klienta przez protokół HAProxy PROXY w wersji 1 <i>https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt</i></p>
+
+</dd>
+<dt id="smtp"><i>smtp</i></dt>
+<dd>
+
+<p>Negocjacja RFC 2487 - <i>SMTP Service Extension for Secure SMTP over TLS</i></p>
+
+</dd>
+<dt id="socks"><i>socks</i></dt>
+<dd>
+
+<p>Wspierany jest protokół SOCKS w wersjach 4, 4a i 5. Protokół SOCKS enkapsulowany jest w protokole TLS, więc adres serwera docelowego nie jest widoczny dla napastnika przechwytującego ruch sieciowy.</p>
+
+<p><i>http://www.openssh.com/txt/socks4.protocol</i></p>
+
+<p><i>http://www.openssh.com/txt/socks4a.protocol</i></p>
+
+<p>Nie jest wspierana komenda BIND protokołu SOCKS. Przesłana wartość parametru USERID jest ignorowana.</p>
+
+<p>Sekcja PRZYKŁADY zawiera przykładowe pliki konfiguracyjne VPNa zbudowanego w oparciu o szyfrowany protokół SOCKS.</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt id="protocolAuthentication-UWIERZYTELNIENIE"><b>protocolAuthentication</b> = UWIERZYTELNIENIE</dt>
+<dd>
+
+<p>rodzaj uwierzytelnienia do negocjacji protokołu</p>
+
+<p>Opcja ta jest wpierana wyłącznie w klienckich protokołach &#39;connect&#39; i &#39;smtp&#39;.</p>
+
+<p>W protokole &#39;connect&#39; wspierane jest uwierzytelnienie &#39;basic&#39; oraz &#39;ntlm&#39;. Domyślnym rodzajem uwierzytelnienia protokołu &#39;connect&#39; jest &#39;basic&#39;.</p>
+
+<p>W protokole &#39;smtp&#39; wspierane jest uwierzytelnienie &#39;plain&#39; oraz &#39;login&#39;. Domyślnym rodzajem uwierzytelnienia protokołu &#39;smtp&#39; jest &#39;plain&#39;.</p>
+
+</dd>
+<dt id="protocolDomain-DOMENA"><b>protocolDomain</b> = DOMENA</dt>
+<dd>
+
+<p>domena do negocjacji protokołu</p>
+
+<p>W obecnej wersji opcja ma zastosowanie wyłącznie w protokole &#39;connect&#39;.</p>
+
+</dd>
+<dt id="protocolHeader-NAG-WEK"><b>protocolHeader</b> = NAGŁÓWEK</dt>
+<dd>
+
+<p>nagłówek do negocjacji protokołu</p>
+
+<p>W obecnej wersji opcja ma zastosowanie wyłącznie w protokole &#39;connect&#39;.</p>
+
+</dd>
+<dt id="protocolHost-ADRES"><b>protocolHost</b> = ADRES</dt>
+<dd>
+
+<p>adres hosta do negocjacji protokołu</p>
+
+<p>Dla protokołu &#39;connect&#39;, <i>protocolHost</i> określa docelowy serwer TLS, do którego połączyć ma się proxy. Adres serwera proxy, do którego łączy się <b>stunnel</b>, musi być określony przy pomocy opcji <i>connect</i>.</p>
+
+<p>Dla protokołu &#39;smtp&#39;, <i>protocolHost</i> określa wartość HELO/EHLO wysyłanego przy negocjacji klienta.</p>
+
+</dd>
+<dt id="protocolPassword-HAS-O"><b>protocolPassword</b> = HASŁO</dt>
+<dd>
+
+<p>hasło do negocjacji protokołu</p>
+
+<p>Opcja ta jest wspierana wyłącznie w klienckich protokołach &#39;connect&#39; i &#39;smtp&#39;.</p>
+
+</dd>
+<dt id="protocolUsername-U-YTKOWNIK"><b>protocolUsername</b> = UŻYTKOWNIK</dt>
+<dd>
+
+<p>nazwa użytkownika do negocjacji protokołu</p>
+
+<p>Opcja ta jest wspierana wyłącznie w klienckich protokołach &#39;connect&#39; i &#39;smtp&#39;.</p>
+
+</dd>
+<dt id="PSKidentity-TO-SAMO"><b>PSKidentity</b> = TOŻSAMOŚĆ</dt>
+<dd>
+
+<p>tożsamość klienta PSK</p>
+
+<p><i>PSKidentity</i> może zostać użyte w sekcjach klienckich do wybrania tożsamości użytej do uwierzytelnienia PSK. Opcja jest ignorowana w sekcjach serwerowych.</p>
+
+<p>domyślnie: pierwsza tożsamość zdefiniowana w pliku <i>PSKsecrets</i></p>
+
+</dd>
+<dt id="PSKsecrets-PLIK"><b>PSKsecrets</b> = PLIK</dt>
+<dd>
+
+<p>plik z tożsamościami i kluczami PSK</p>
+
+<p>Każda linia pliku jest w następującym formacie:</p>
+
+<pre><code>    TOŻSAMOŚĆ:KLUCZ</code></pre>
+
+<p>Szesnastkowe klucze są automatycznie konwertowane do postaci binarnej. Klucz musi być mieć przynajmniej 16 bajtów, co w przypadku kluczy szesnastkowych przekłada się na przynajmniej 32 znaki. Należy ograniczyć dostęp do czytania lub pisania do tego pliku.</p>
+
+</dd>
+<dt id="pty-yes-no-tylko-Unix"><b>pty</b> = yes | no (tylko Unix)</dt>
+<dd>
+
+<p>alokuj pseudo-terminal dla programu uruchamianego w opcji &#39;exec&#39;</p>
+
+</dd>
+<dt id="redirect-HOST:-PORT"><b>redirect</b> = [HOST:]PORT</dt>
+<dd>
+
+<p>przekieruj klienta, któremu nie udało się poprawnie uwierzytelnić przy pomocy certyfikatu</p>
+
+<p>Opcja działa wyłącznie w trybie serwera. Część negocjacji protokołów jest niekompatybilna z opcją <i>redirect</i>.</p>
+
+</dd>
+<dt id="renegotiation-yes-no"><b>renegotiation</b> = yes | no</dt>
+<dd>
+
+<p>pozwalaj na renegocjację TLS</p>
+
+<p>Zastosowania renegocjacji TLS zawierają niektóre scenariusze uwierzytelniania oraz renegocjację kluczy dla długotrwałych połączeń.</p>
+
+<p>Z drugiej strony własność na może ułatwić trywialny atak DoS poprzez wygenerowanie obciążenia procesora:</p>
+
+<p>http://vincent.bernat.im/en/blog/2011-ssl-dos-mitigation.html</p>
+
+<p>Warto zauważyć, że zablokowanie renegocjacji TLS nie zabezpiecza w pełni przed opisanym problemem.</p>
+
+<p>domyślnie: yes (o ile wspierane przez <b>OpenSSL</b>)</p>
+
+</dd>
+<dt id="reset-yes-no"><b>reset</b> = yes | no</dt>
+<dd>
+
+<p>sygnalizuj wystąpienie błędu przy pomocy flagi TCP RST</p>
+
+<p>Opcja nie jest wspierana na niektórych platformach.</p>
+
+<p>domyślnie: yes</p>
+
+</dd>
+<dt id="retry-yes-no"><b>retry</b> = yes | no</dt>
+<dd>
+
+<p>połącz ponownie sekcję connect+exec po rozłączeniu</p>
+
+<p>domyślnie: no</p>
+
+</dd>
+<dt id="securityLevel-POZIOM"><b>securityLevel</b> = POZIOM</dt>
+<dd>
+
+<p>ustaw poziom bezpieczeństwa</p>
+
+<p>Znaczenie każdego poziomu opisano poniżej:</p>
+
+<dl>
+
+<dt id="poziom-0">poziom 0</dt>
+<dd>
+
+<p>Wszystko jest dozwolone.</p>
+
+</dd>
+<dt id="poziom-1">poziom 1</dt>
+<dd>
+
+<p>Poziom bezpieczeństwa zapewniający minimum 80 bitów bezpieczeństwa. Żadne parametry kryptograficzne oferujące poziom bezpieczeństwa poniżej 80 bitów nie mogą zostać użyte. W związku z tym RSA, DSA oraz klucze DH krótsze niż 1024 bity, a także klucze ECC krótsze niż 160 bitów i wszystkie eksportowe zestawy szyfrów są niedozwolone. Użycie SSLv2 jest zabronione. Wszelkie listy parametrów kryptograficznych używające MD5 do MAC są zabronione.</p>
+
+</dd>
+<dt id="poziom-2">poziom 2</dt>
+<dd>
+
+<p>Poziom bezpieczeństwa zapewniający 112 bitów bezpieczeństwa. W związku z tym RSA, DSA oraz klucze DH krótsze niż 2048 bitów, a także klucze ECC krótsze niż 224 bity są niedozwolone. Oprócz wyłączeń z poziomu 1 zabronione jest także korzystanie z zestawów szyfrów używających RC4. Użycie SSLv3 jest zabronione. Kompresja jest wyłączona.</p>
+
+</dd>
+<dt id="poziom-3">poziom 3</dt>
+<dd>
+
+<p>Poziom bezpieczeństwa zapewniający 128 bitów bezpieczeństwa. W związku z tym RSA, DSA oraz klucze DH krótsze niż 3072 bity, a także klucze ECC krótsze niż 256 bitów są niedozwolone. Oprócz wyłączeń z poziomu 2 zabronione jest także korzystanie z zestawów szyfrów nie zapewniających utajniania z wyprzedzeniem (forward secrecy). Wersje TLS starsze niż 1.1 są zabronione. Bilety sesji są wyłączone.</p>
+
+</dd>
+<dt id="poziom-4">poziom 4</dt>
+<dd>
+
+<p>Poziom bezpieczeństwa zapewniający 192 bity bezpieczeństwa. W związku z tym RSA, DSA oraz klucze DH krótsze niż 7680 bitów, a także klucze ECC krótsze niż 384 bity są niedozwolone. Listy parametrów kryptograficznych używających SHA1 do MAC są zabronione. Wersje TLS starsze niż 1.2 są zabronione.</p>
+
+</dd>
+<dt id="poziom-5">poziom 5</dt>
+<dd>
+
+<p>Poziom bezpieczeństwa zapewniający 256 bitów bezpieczeństwa. W związku z tym RSA, DSA oraz klucze DH krótsze niż 15360 bitów, a także klucze ECC krótsze niż 512 bitów są niedozwolone.</p>
+
+</dd>
+<dt id="domy-lnie:-2">domyślnie: 2</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>Opcja <i>securityLevel</i> jest dostępna począwszy od <b>OpenSSL 1.1.0</b>.</p>
+
+</dd>
+<dt id="requireCert-yes-no"><b>requireCert</b> = yes | no</dt>
+<dd>
+
+<p>wymagaj certyfikatu klienta dla <i>verifyChain</i> lub <i>verifyPeer</i></p>
+
+<p>Przy opcji <i>requireCert</i> ustawionej na <i>no</i>, <b>stunnel</b> akceptuje połączenia klientów, które nie wysłały certyfikatu.</p>
+
+<p>Zarówno <i>verifyChain = yes</i> jak i <i>verifyPeer = yes</i> automatycznie ustawiają <i>requireCert</i> na <i>yes</i>.</p>
+
+<p>domyślnie: no</p>
+
+</dd>
+<dt id="setgid-IDENTYFIKATOR_GRUPY-tylko-Unix"><b>setgid</b> = IDENTYFIKATOR_GRUPY (tylko Unix)</dt>
+<dd>
+
+<p>identyfikator grupy Unix</p>
+
+<p>Jako opcja globalna: grupa, z której prawami pracował będzie <b>stunnel</b>.</p>
+
+<p>Jako opcja usługi: grupa gniazda Unix utworzonego przy pomocy opcji &quot;accept&quot;.</p>
+
+</dd>
+<dt id="setuid-IDENTYFIKATOR_U-YTKOWNIKA-tylko-Unix"><b>setuid</b> = IDENTYFIKATOR_UŻYTKOWNIKA (tylko Unix)</dt>
+<dd>
+
+<p>identyfikator użytkownika Unix</p>
+
+<p>Jako opcja globalna: użytkownik, z którego prawami pracował będzie <b>stunnel</b>.</p>
+
+<p>Jako opcja usługi: właściciel gniazda Unix utworzonego przy pomocy opcji &quot;accept&quot;.</p>
+
+</dd>
+<dt id="sessionCacheSize-LICZBA_POZYCJI_CACHE"><b>sessionCacheSize</b> = LICZBA_POZYCJI_CACHE</dt>
+<dd>
+
+<p>rozmiar pamięci podręcznej sesji TLS</p>
+
+<p>Parametr określa maksymalną liczbę pozycji wewnętrznej pamięci podręcznej sesji.</p>
+
+<p>Wartość 0 oznacza brak ograniczenia rozmiaru. Nie jest to zalecane dla systemów produkcyjnych z uwagi na ryzyko ataku DoS przez wyczerpanie pamięci RAM.</p>
+
+</dd>
+<dt id="sessionCacheTimeout-LICZBA_SEKUND"><b>sessionCacheTimeout</b> = LICZBA_SEKUND</dt>
+<dd>
+
+<p>przeterminowanie pamięci podręcznej sesji TLS</p>
+
+<p>Parametr określa czas w sekundach, po którym sesja TLS zostanie usunięta z pamięci podręcznej.</p>
+
+</dd>
+<dt id="sessionResume-yes-no"><b>sessionResume</b> = yes | no</dt>
+<dd>
+
+<p>zezwalaj lub nie zezwalaj na wznawianie sesji</p>
+
+<p>domyślnie: yes</p>
+
+</dd>
+<dt id="sessiond-HOST:PORT"><b>sessiond</b> = HOST:PORT</dt>
+<dd>
+
+<p>adres sessiond - serwera cache sesji TLS</p>
+
+</dd>
+<dt id="sni-NAZWA_US-UGI:WZORZEC_NAZWY_SERWERA-tryb-serwera"><b>sni</b> = NAZWA_USŁUGI:WZORZEC_NAZWY_SERWERA (tryb serwera)</dt>
+<dd>
+
+<p>Użyj usługi jako podrzędnej (virtualnego serwera) dla rozszerzenia TLS Server Name Indication (RFC 3546).</p>
+
+<p><i>NAZWA_USŁUGI</i> wskazuje usługę nadrzędną, która odbiera połączenia od klientów przy pomocy opcji <i>accept</i>. <i>WZORZEC_NAZWY_SERWERA</i> wskazuje nazwę serwera wirtualnego. Wzorzec może zaczynać się znakiem &#39;*&#39;, np. &#39;*.example.com&quot;. Z pojedynczą usługą nadrzędną powiązane jest zwykle wiele usług podrzędnych. Opcja <i>sni</i> może być również użyta wielokrotnie w ramach jednej usługi podrzędnej.</p>
+
+<p>Zarówno usługa nadrzędna jak i podrzędna nie może być skonfigurowana w trybie klienckim.</p>
+
+<p>Opcja <i>connect</i> usługi podrzędnej jest ignorowana w połączeniu z opcją <i>protocol</i>, gdyż połączenie do zdalnego serwera jest w tym wypadku nawiązywane przed negocjacją TLS.</p>
+
+<p>Uwierzytelnienie przy pomocy biblioteki libwrap jest realizowane dwukrotnie: najpierw dla usługi nadrzędnej po odebraniu połączenia TCP, a następnie dla usługi podrzędnej podczas negocjacji TLS.</p>
+
+<p>Opcja <i>sni</i> jest dostępna począwszy od <b>OpenSSL 1.0.0</b>.</p>
+
+</dd>
+<dt id="sni-NAZWA_SERWERA-tryb-klienta"><b>sni</b> = NAZWA_SERWERA (tryb klienta)</dt>
+<dd>
+
+<p>Użyj parametru jako wartości rozszerzenia TLS Server Name Indication (RFC 3546).</p>
+
+<p>Pusta wartość parametru NAZWA_SERWERA wyłącza wysyłanie rozszerzenia SNI.</p>
+
+<p>Opcja <i>sni</i> jest dostępna począwszy od <b>OpenSSL 1.0.0</b>.</p>
+
+</dd>
+<dt id="socket-a-l-r:OPCJA-WARTO-:WARTO"><b>socket</b> = a|l|r:OPCJA=WARTOŚĆ[:WARTOŚĆ]</dt>
+<dd>
+
+<p>ustaw opcję na akceptującym/lokalnym/zdalnym gnieździe</p>
+
+<p>Dla opcji linger wartości mają postać l_onof:l_linger. Dla opcji time wartości mają postać tv_sec:tv_usec.</p>
+
+<p>Przykłady:</p>
+
+<pre><code>    socket = l:SO_LINGER=1:60
+        ustaw jednominutowe przeterminowanie
+        przy zamykaniu lokalnego gniazda
+    socket = r:SO_OOBINLINE=yes
+        umieść dane pozapasmowe (out-of-band)
+        bezpośrednio w strumieniu danych
+        wejściowych dla zdalnych gniazd
+    socket = a:SO_REUSEADDR=no
+        zablokuj ponowne używanie portu
+        (domyślnie włączone)
+    socket = a:SO_BINDTODEVICE=lo
+        przyjmuj połączenia wyłącznie na
+        interfejsie zwrotnym (ang. loopback)</code></pre>
+
+</dd>
+<dt id="sslVersion-WERSJA_SSL"><b>sslVersion</b> = WERSJA_SSL</dt>
+<dd>
+
+<p>wersja protokołu TLS</p>
+
+<p>Wspierane wersje: all, SSLv2, SSLv3, TLSv1, TLSv1.1, TLSv1.2, TLSv1.3</p>
+
+<p>Dostępność konkretnych protokołów zależy od użytej wersji OpenSSL. Starsze wersje OpenSSL nie wspierają TLSv1.1, TLSv1.2, TLSv1.3. Nowsze wersje OpenSSL nie wspierają SSLv2.</p>
+
+<p>Przestarzałe protokoły SSLv2 i SSLv3 są domyślnie wyłączone.</p>
+
+<p>Począwszy od <b>OpenSSL 1.1.0</b>, ustawienie</p>
+
+<pre><code>    sslVersion = WERSJA_SSL</code></pre>
+
+<p>jest równoważne opcjom</p>
+
+<pre><code>    sslVersionMax = WERSJA_SSL
+    sslVersionMin = WERSJA_SSL</code></pre>
+
+</dd>
+<dt id="sslVersionMax-WERSJA_SSL"><b>sslVersionMax</b> = WERSJA_SSL</dt>
+<dd>
+
+<p>maksymalna wspierana wersja protokołu TLS</p>
+
+<p>Wspierane wersje: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2, TLSv1.3</p>
+
+<p><i>all</i> włącza wszystkie wersje protokołów aż do maksymalnej wersji wspieranej przez bibliotekę użytej wersji OpenSSL.</p>
+
+<p>Dostępność konkretnych protokołów zależy od użytej wersji OpenSSL.</p>
+
+<p>Opcja <i>sslVersionMax</i> jest dostępna począwszy od <b>OpenSSL 1.1.0</b>.</p>
+
+<p>domyślnie: all</p>
+
+</dd>
+<dt id="sslVersionMin-WERSJA_SSL"><b>sslVersionMin</b> = WERSJA_SSL</dt>
+<dd>
+
+<p>minimalna wspierana wersja protokołu TLS</p>
+
+<p>Wspierane wersje: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2, TLSv1.3</p>
+
+<p><i>all</i> włącza wszystkie wersje protokołów aż do minimalnej wersji wspieranej przez bibliotekę użytej wersji OpenSSL.</p>
+
+<p>Dostępność konkretnych protokołów zależy od użytej wersji OpenSSL.</p>
+
+<p>Opcja <i>sslVersionMin</i> jest dostępna począwszy od <b>OpenSSL 1.1.0</b>.</p>
+
+<p>domyślnie: TLSv1</p>
+
+</dd>
+<dt id="stack-LICZBA_BAJT-W-z-wyj-tkiem-modelu-FORK"><b>stack</b> = LICZBA_BAJTÓW (z wyjątkiem modelu FORK)</dt>
+<dd>
+
+<p>rozmiar stosu procesora tworzonych wątków</p>
+
+<p>Zbyt duży stos zwiększa zużycie pamięci wirtualnej. Zbyt mały stos może powodować problemy ze stabilnością aplikacji.</p>
+
+<p>domyślnie: 65536 bytes (wystarczający dla testowanych platform)</p>
+
+</dd>
+<dt id="ticketKeySecret-SECRET"><b>ticketKeySecret</b> = SECRET</dt>
+<dd>
+
+<p>szesnastkowy klucz symetryczny używany przez serwer do zapewnienia poufności biletów sesji</p>
+
+<p>Bilety sesji zdefiniowane w RFC 5077 zapewniają ulepszoną możliwość wznawiania sesji, w której implementacja serwera nie jest wymagana do utrzymania stanu sesji.</p>
+
+<p>Łączne użycie opcji <i>ticketKeySecret</i> i <i>ticketMacSecret</i> umożliwia wznawianie sesji na klastrze serwerów lub wznowienie sesji po restarcie serwera.</p>
+
+<p>Klucz musi mieć rozmiar 16 lub 32 bajtów, co przekłada się na dokładnie 32 lub 64 cyfry szesnastkowe. Poszczególne bajty mogą być opcjonalnie oddzielone dwukropkami.</p>
+
+<p>Opcja działa wyłącznie w trybie serwera.</p>
+
+<p>Opcja <i>ticketKeySecret</i> jest dostępna począwszy od <b>OpenSSL 1.0.0</b>.</p>
+
+<p>Wyłączenie opcji <i>NO_TICKET</i> jest wymagane dla obsługi biletów sesji w OpenSSL-u starszym niż 1.1.1, ale opcja ta jest niekompatybilna z opcją <i>redirect</i>.</p>
+
+</dd>
+<dt id="ticketMacSecret-SECRET"><b>ticketMacSecret</b> = SECRET</dt>
+<dd>
+
+<p>szesnastkowy klucz symetryczny używany przez serwer zapewnienia integralności biletów sesji</p>
+
+<p>Klucz musi mieć rozmiar 16 lub 32 bajtów, co przekłada się na dokładnie 32 lub 64 cyfry szesnastkowe. Poszczególne bajty mogą być opcjonalnie oddzielone dwukropkami.</p>
+
+<p>Opcja działa wyłącznie w trybie serwera.</p>
+
+<p>Opcja <i>ticketMacSecret</i> jest dostępna począwszy od <b>OpenSSL 1.0.0</b>.</p>
+
+</dd>
+<dt id="TIMEOUTbusy-LICZBA_SEKUND"><b>TIMEOUTbusy</b> = LICZBA_SEKUND</dt>
+<dd>
+
+<p>czas oczekiwania na spodziewane dane</p>
+
+</dd>
+<dt id="TIMEOUTclose-LICZBA_SEKUND"><b>TIMEOUTclose</b> = LICZBA_SEKUND</dt>
+<dd>
+
+<p>czas oczekiwania na close_notify (ustaw na 0, jeżeli klientem jest MSIE)</p>
+
+</dd>
+<dt id="TIMEOUTconnect-LICZBA_SEKUND"><b>TIMEOUTconnect</b> = LICZBA_SEKUND</dt>
+<dd>
+
+<p>czas oczekiwania na nawiązanie połączenia</p>
+
+</dd>
+<dt id="TIMEOUTidle-LICZBA_SEKUND"><b>TIMEOUTidle</b> = LICZBA_SEKUND</dt>
+<dd>
+
+<p>maksymalny czas utrzymywania bezczynnego połączenia</p>
+
+</dd>
+<dt id="transparent-none-source-destination-both-tylko-Unix"><b>transparent</b> = none | source | destination | both (tylko Unix)</dt>
+<dd>
+
+<p>tryb przezroczystego proxy na wspieranych platformach</p>
+
+<p>Wspierane wartości:</p>
+
+<dl>
+
+<dt id="none"><b>none</b></dt>
+<dd>
+
+<p>Zablokuj wsparcie dla przezroczystego proxy. Jest to wartość domyślna.</p>
+
+</dd>
+<dt id="source"><b>source</b></dt>
+<dd>
+
+<p>Przepisz adres, aby nawiązywane połączenie wydawało się pochodzić bezpośrednio od klienta, a nie od programu <b>stunnel</b>.</p>
+
+<p>Opcja jest aktualnie obsługiwana w:</p>
+
+<dl>
+
+<dt id="Trybie-zdalnym-opcja-connect-w-systemie-Linux-2.6.28">Trybie zdalnym (opcja <i>connect</i>) w systemie <i>Linux &gt;=2.6.28</i></dt>
+<dd>
+
+<p>Konfiguracja wymaga następujących ustawień iptables oraz routingu (na przykład w pliku /etc/rc.local lub analogicznym):</p>
+
+<pre><code>    iptables -t mangle -N DIVERT
+    iptables -t mangle -A PREROUTING -p tcp -m socket -j DIVERT
+    iptables -t mangle -A DIVERT -j MARK --set-mark 1
+    iptables -t mangle -A DIVERT -j ACCEPT
+    ip rule add fwmark 1 lookup 100
+    ip route add local 0.0.0.0/0 dev lo table 100
+    echo 0 &gt;/proc/sys/net/ipv4/conf/lo/rp_filter</code></pre>
+
+<p>Konfiguracja ta wymaga, aby <b>stunnel</b> był wykonywany jako root i bez opcji <i>setuid</i>.</p>
+
+</dd>
+<dt id="Trybie-zdalnym-opcja-connect-w-systemie-Linux-2.2.x">Trybie zdalnym (opcja <i>connect</i>) w systemie <i>Linux 2.2.x</i></dt>
+<dd>
+
+<p>Konfiguracja ta wymaga skompilowania jądra z opcją <i>transparent proxy</i>. Docelowa usługa musi być umieszczona na osobnej maszynie, do której routing kierowany jest poprzez serwer <b>stunnela</b>.</p>
+
+<p>Dodatkowo <b>stunnel</b> powinien być wykonywany jako root i bez opcji <i>setuid</i>.</p>
+
+</dd>
+<dt id="Trybie-zdalnym-opcja-connect-w-systemie-FreeBSD-8.0">Trybie zdalnym (opcja <i>connect</i>) w systemie <i>FreeBSD &gt;=8.0</i></dt>
+<dd>
+
+<p>Konfiguracja ta wymaga skonfigurowania firewalla i routingu. <b>stunnel</b> musi być wykonywany jako root i bez opcji <i>setuid</i>.</p>
+
+</dd>
+<dt id="Trybie-lokalnym-opcja-exec">Trybie lokalnym (opcja <i>exec</i>)</dt>
+<dd>
+
+<p>Konfiguracja ta jest realizowana przy pomocy biblioteki <i>libstunnel.so</i>. Do załadowania biblioteki wykorzystywana jest zmienna środowiskowa _RLD_LIST na platformie Tru64 lub LD_PRELOAD na innych platformach.</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt id="destination"><i>destination</i></dt>
+<dd>
+
+<p>Oryginalny adres docelowy jest używany zamiast opcji <i>connect</i>.</p>
+
+<p>Przykładowa konfiguracja przezroczystego adresu docelowego:</p>
+
+<pre><code>    [transparent]
+    client = yes
+    accept = &lt;port_stunnela&gt;
+    transparent = destination</code></pre>
+
+<p>Konfiguracja wymaga ustawień iptables, na przykład w pliku /etc/rc.local lub analogicznym.</p>
+
+<p>W przypadku docelowej usługi umieszczonej na tej samej maszynie:</p>
+
+<pre><code>    /sbin/iptables -t nat -I OUTPUT -p tcp --dport &lt;port_przekierowany&gt; \
+        -m ! --uid-owner &lt;identyfikator_użytkownika_stunnela&gt; \
+        -j DNAT --to-destination &lt;lokalne_ip&gt;:&lt;lokalny_port&gt;</code></pre>
+
+<p>W przypadku docelowej usługi umieszczonej na zdalnej maszynie:</p>
+
+<pre><code>    /sbin/iptables -I INPUT -i eth0 -p tcp --dport &lt;port_stunnela&gt; -j ACCEPT
+    /sbin/iptables -t nat -I PREROUTING -p tcp --dport &lt;port_przekierowany&gt; \
+        -i eth0 -j DNAT --to-destination &lt;lokalne_ip&gt;:&lt;port_stunnela&gt;</code></pre>
+
+<p>Przezroczysty adres docelowy jest aktualnie wspierany wyłącznie w systemie Linux.</p>
+
+</dd>
+<dt id="both"><i>both</i></dt>
+<dd>
+
+<p>Użyj przezroczystego proxy zarówno dla adresu źródłowego jak i docelowego.</p>
+
+</dd>
+</dl>
+
+<p>Dla zapewnienia kompatybilności z wcześniejszymi wersjami wspierane są dwie dodatkowe opcje:</p>
+
+<dl>
+
+<dt id="yes"><i>yes</i></dt>
+<dd>
+
+<p>Opcja została przemianowana na <i>source</i>.</p>
+
+</dd>
+<dt id="no"><i>no</i></dt>
+<dd>
+
+<p>Opcja została przemianowana na <i>none</i>.</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt id="verify-POZIOM"><b>verify</b> = POZIOM</dt>
+<dd>
+
+<p>weryfikuj certyfikat drugiej strony połączenia</p>
+
+<p>Opcja ta jest przestarzała i należy ją zastąpić przez opcje <i>verifyChain</i> i <i>verifyPeer</i>.</p>
+
+<dl>
+
+<dt id="poziom-01"><i>poziom 0</i></dt>
+<dd>
+
+<p>zarządaj certyfikatu i zignoruj go</p>
+
+</dd>
+<dt id="poziom-11"><i>poziom 1</i></dt>
+<dd>
+
+<p>weryfikuj, jeżeli został przedstawiony</p>
+
+</dd>
+<dt id="poziom-21"><i>poziom 2</i></dt>
+<dd>
+
+<p>weryfikuj z zainstalowanym certyfikatem Centrum Certyfikacji</p>
+
+</dd>
+<dt id="poziom-31"><i>poziom 3</i></dt>
+<dd>
+
+<p>weryfikuj z lokalnie zainstalowanym certyfikatem drugiej strony</p>
+
+</dd>
+<dt id="poziom-41"><i>poziom 4</i></dt>
+<dd>
+
+<p>weryfikuj z certyfikatem drugiej strony ignorując łańcuch CA</p>
+
+</dd>
+<dt id="domy-lnie"><i>domyślnie</i></dt>
+<dd>
+
+<p>nie weryfikuj</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt id="verifyChain-yes-no"><b>verifyChain</b> = yes | no</dt>
+<dd>
+
+<p>weryfikuj łańcuch certyfikatów drugiej strony</p>
+
+<p>Do weryfikacji certyfikatu serwera kluczowe jest, aby wymagać również konkretnego certyfikatu przy pomocy <i>checkHost</i> lub <i>checkIP</i>.</p>
+
+<p>Samopodpisany certyfikat głównego CA należy umieścić albo w pliku podanym w opcji <i>CAfile</i>, albo w katalogu podanym w opcji <i>CApath</i>.</p>
+
+<p>domyślnie: no</p>
+
+</dd>
+<dt id="verifyPeer-yes-no"><b>verifyPeer</b> = yes | no</dt>
+<dd>
+
+<p>weryfikuj certyfikat drugiej strony</p>
+
+<p>Certyfikat drugiej strony należy umieścić albo w pliku podanym w opcji <i>CAfile</i>, albo w katalogu podanym w opcji <i>CApath</i>.</p>
+
+<p>domyślnie: no</p>
+
+</dd>
+</dl>
+
+<a href="#_podtop_"><h1 id="ZWRACANA-WARTO">ZWRACANA WARTOŚĆ</h1></a>
+
+<p><b>stunnel</b> zwraca zero w przypadku sukcesu, lub wartość niezerową w przypadku błędu.</p>
+
+<a href="#_podtop_"><h1 id="SIGNA-Y">SIGNAŁY</h1></a>
+
+<p>Następujące sygnały mogą być użyte do sterowania programem w systemie Unix:</p>
+
+<dl>
+
+<dt id="SIGHUP">SIGHUP</dt>
+<dd>
+
+<p>Załaduj ponownie plik konfiguracyjny.</p>
+
+<p>Niektóre globalne opcje nie będą przeładowane:</p>
+
+<ul>
+
+<li><p>chroot</p>
+
+</li>
+<li><p>foreground</p>
+
+</li>
+<li><p>pid</p>
+
+</li>
+<li><p>setgid</p>
+
+</li>
+<li><p>setuid</p>
+
+</li>
+</ul>
+
+<p>Jeżeli wykorzystywana jest opcja &#39;setuid&#39; <b>stunnel</b> nie będzie mógł załadować ponownie konfiguracji wykorzystującej uprzywilejowane (&lt;1024) porty.</p>
+
+<p>Jeżeli wykorzystywana jest opcja &#39;chroot&#39; <b>stunnel</b> będzie szukał wszystkich potrzebnych plików (łącznie z plikiem konfiguracyjnym, certyfikatami, logiem i plikiem pid) wewnątrz katalogu wskazanego przez &#39;chroot&#39;.</p>
+
+</dd>
+<dt id="SIGUSR1">SIGUSR1</dt>
+<dd>
+
+<p>Zamknij i otwórz ponownie log. Funkcja ta może zostać użyta w skrypcie rotującym log programu <b>stunnel</b>.</p>
+
+</dd>
+<dt id="SIGUSR2">SIGUSR2</dt>
+<dd>
+
+<p>Zapisz w logu listę aktywnych połączeń.</p>
+
+</dd>
+<dt id="SIGTERM-SIGQUIT-SIGINT">SIGTERM, SIGQUIT, SIGINT</dt>
+<dd>
+
+<p>Zakończ działanie programu.</p>
+
+</dd>
+</dl>
+
+<p>Skutek wysłania innych sygnałów jest niezdefiniowany.</p>
+
+<a href="#_podtop_"><h1 id="PRZYK-ADY">PRZYKŁADY</h1></a>
+
+<p>Szyfrowanie połączeń do lokalnego serwera <i>imapd</i> można użyć:</p>
+
+<pre><code>    [imapd]
+    accept = 993
+    exec = /usr/sbin/imapd
+    execArgs = imapd</code></pre>
+
+<p>albo w trybie zdalnym:</p>
+
+<pre><code>    [imapd]
+    accept = 993
+    connect = 143</code></pre>
+
+<p>Aby umożliwić lokalnemu klientowi poczty elektronicznej korzystanie z serwera <i>imapd</i> przez TLS należy skonfigurować pobieranie poczty z adresu localhost i portu 119, oraz użyć następującej konfiguracji:</p>
+
+<pre><code>    [imap]
+    client = yes
+    accept = 143
+    connect = serwer:993</code></pre>
+
+<p>W połączeniu z programem <i>pppd</i> <b>stunnel</b> pozwala zestawić prosty VPN. Po stronie serwera nasłuchującego na porcie 2020 jego konfiguracja może wyglądać następująco:</p>
+
+<pre><code>    [vpn]
+    accept = 2020
+    exec = /usr/sbin/pppd
+    execArgs = pppd local
+    pty = yes</code></pre>
+
+<p>Poniższy plik konfiguracyjny może być wykorzystany do uruchomienia programu <b>stunnel</b> w trybie <i>inetd</i>. Warto zauważyć, że w pliku konfiguracyjnym nie ma sekcji <i>[nazwa_usługi]</i>.</p>
+
+<pre><code>    exec = /usr/sbin/imapd
+    execArgs = imapd</code></pre>
+
+<p>Aby skonfigurować VPN można użyć następującej konfiguracji klienta:</p>
+
+<pre><code>    [socks_client]
+    client = yes
+    accept = 127.0.0.1:1080
+    connect = vpn_server:9080
+    verifyPeer = yes
+    CAfile = stunnel.pem</code></pre>
+
+<p>Odpowiadająca jej konfiguracja serwera vpn_server:</p>
+
+<pre><code>    [socks_server]
+    protocol = socks
+    accept = 9080
+    cert = stunnel.pem
+    key = stunnel.key</code></pre>
+
+<p>Do przetestowania konfiguracji można wydać na maszynie klienckiej komendę:</p>
+
+<pre><code>    curl --socks4a localhost http://www.example.com/</code></pre>
+
+<p>Przykładowa konfiguracja serwera SNI:</p>
+
+<pre><code>    [virtual]
+    ; usługa nadrzędna
+    accept = 443
+    cert =  default.pem
+    connect = default.internal.mydomain.com:8080
+
+    [sni1]
+    ; usługa podrzędna 1
+    sni = virtual:server1.mydomain.com
+    cert = server1.pem
+    connect = server1.internal.mydomain.com:8081
+
+    [sni2]
+    ; usługa podrzędna 2
+    sni = virtual:server2.mydomain.com
+    cert = server2.pem
+    connect = server2.internal.mydomain.com:8082
+    verifyPeer = yes
+    CAfile = server2-allowed-clients.pem</code></pre>
+
+<p>Przykładowa konfiguracja umożliwiająca uwierzytelnienie z użyciem klucza prywatnego przechowywanego w Windows Certificate Store (tylko Windows). W przypadku użycia silnika CAPI, nie należy ustawiać opcji cert, gdyż klucz klienta zostanie automatycznie pobrany z Certificate Store na podstawie zaufanych certyfikatów CA przedstawionych przez serwer.</p>
+
+<pre><code>    engine = capi
+
+    [service]
+    engineId = capi
+    client = yes
+    accept = 127.0.0.1:8080
+    connect = example.com:8443</code></pre>
+
+<p>Przykładowa konfiguracja umożliwiająca użycie certyfikatu i klucza prywatnego z urządzenia zgodnego z pkcs11:</p>
+
+<pre><code>    engine = pkcs11
+    engineCtrl = MODULE_PATH:opensc-pkcs11.so
+    engineCtrl = PIN:123456
+
+    [service]
+    engineId = pkcs11
+    client = yes
+    accept = 127.0.0.1:8080
+    connect = example.com:843
+    cert = pkcs11:token=MyToken;object=MyCert
+    key = pkcs11:token=MyToken;object=MyKey</code></pre>
+
+<p>Przykładowa konfiguracja umożliwiająca użycie certyfikatu i klucza prywatnego umieszczonego na tokenie SoftHSM</p>
+
+<pre><code>    engine = pkcs11
+    engineCtrl = MODULE_PATH:softhsm2.dll
+    engineCtrl = PIN:12345
+
+    [service]
+    engineId = pkcs11
+    client = yes
+    accept = 127.0.0.1:8080
+    connect = example.com:843
+    cert = pkcs11:token=MyToken;object=KeyCert</code></pre>
+
+<a href="#_podtop_"><h1 id="NOTKI">NOTKI</h1></a>
+
+<h2 id="OGRANICZENIA">OGRANICZENIA</h2>
+
+<p><b>stunnel</b> nie może być używany do szyfrowania protokołu <i>FTP</i>, ponieważ do przesyłania poszczególnych plików używa on dodatkowych połączeń otwieranych na portach o dynamicznie przydzielanych numerach. Istnieją jednak specjalne wersje klientów i serwerów FTP pozwalające na szyfrowanie przesyłanych danych przy pomocy protokołu <i>TLS</i>.</p>
+
+<h2 id="TRYB-INETD-tylko-Unix">TRYB INETD (tylko Unix)</h2>
+
+<p>W większości zastosowań <b>stunnel</b> samodzielnie nasłuchuje na porcie podanym w pliku konfiguracyjnym i tworzy połączenie z innym portem podanym w opcji <i>connect</i> lub nowym programem podanym w opcji <i>exec</i>. Niektórzy wolą jednak wykorzystywać oddzielny program, który odbiera połączenia, po czym uruchamia program <b>stunnel</b>. Przykładami takich programów są inetd, xinetd i tcpserver.</p>
+
+<p>Przykładowa linia pliku /etc/inetd.conf może wyglądać tak:</p>
+
+<pre><code>    imaps stream tcp nowait root @bindir@/stunnel
+        stunnel @sysconfdir@/stunnel/imaps.conf</code></pre>
+
+<p>Ponieważ w takich przypadkach połączenie na zdefiniowanym porcie (tutaj <i>imaps</i>) nawiązuje osobny program (tutaj <i>inetd</i>), <b>stunnel</b> nie może używać opcji <i>accept</i>. W pliku konfiguracyjnym nie może być również zdefiniowana żadna usługa (<i>[nazwa_usługi]</i>), ponieważ konfiguracja taka pozwala na nawiązanie tylko jednego połączenia. Wszystkie <i>OPCJE USŁUG</i> powinny być umieszczone razem z opcjami globalnymi. Przykład takiej konfiguracji znajduje się w sekcji <i>PRZYKŁADY</i>.</p>
+
+<h2 id="CERTYFIKATY">CERTYFIKATY</h2>
+
+<p>Protokół TLS wymaga, aby każdy serwer przedstawiał się nawiązującemu połączenie klientowi prawidłowym certyfikatem X.509. Potwierdzenie tożsamości serwera polega na wykazaniu, że posiada on odpowiadający certyfikatowi klucz prywatny. Najprostszą metodą uzyskania certyfikatu jest wygenerowanie go przy pomocy wolnego pakietu <b>OpenSSL</b>. Więcej informacji na temat generowania certyfikatów można znaleźć na umieszczonych poniżej stronach.</p>
+
+<p>Plik <i>.pem</i> powinien zawierać klucz prywatny oraz podpisany certyfikat (nie żądanie certyfikatu). Otrzymany plik powinien mieć następującą postać:</p>
+
+<pre><code>    -----BEGIN RSA PRIVATE KEY-----
+    [zakodowany klucz]
+    -----END RSA PRIVATE KEY-----
+    -----BEGIN CERTIFICATE-----
+    [zakodowany certyfikat]
+    -----END CERTIFICATE-----</code></pre>
+
+<h2 id="LOSOWO">LOSOWOŚĆ</h2>
+
+<p><b>stunnel</b> potrzebuje zainicjować PRNG (generator liczb pseudolosowych), gdyż protokół TLS wymaga do bezpieczeństwa kryptograficznego źródła dobrej losowości. Następujące źródła są kolejno odczytywane aż do uzyskania wystarczającej ilości entropii:</p>
+
+<ul>
+
+<li><p>Zawartość pliku podanego w opcji <i>RNDfile</i>.</p>
+
+</li>
+<li><p>Zawartość pliku o nazwie określonej przez zmienną środowiskową RANDFILE, o ile jest ona ustawiona.</p>
+
+</li>
+<li><p>Plik .rnd umieszczony w katalogu domowym użytkownika, jeżeli zmienna RANDFILE nie jest ustawiona.</p>
+
+</li>
+<li><p>Plik podany w opcji &#39;--with-random&#39; w czasie konfiguracji programu.</p>
+
+</li>
+<li><p>Zawartość ekranu w systemie Windows.</p>
+
+</li>
+<li><p>Gniazdo egd, jeżeli użyta została opcja <i>EGD</i>.</p>
+
+</li>
+<li><p>Gniazdo egd podane w opcji &#39;--with-egd-socket&#39; w czasie konfiguracji programu.</p>
+
+</li>
+<li><p>Urządzenie /dev/urandom.</p>
+
+</li>
+</ul>
+
+<p>Warto zwrócić uwagę, że na maszynach z systemem Windows, na których konsoli nie pracuje użytkownik, zawartość ekranu nie jest wystarczająco zmienna, aby zainicjować PRNG. W takim przypadku do zainicjowania generatora należy użyć opcji <i>RNDfile</i>.</p>
+
+<p>Plik <i>RNDfile</i> powinien zawierać dane losowe -- również w tym sensie, że powinny być one inne przy każdym uruchomieniu programu <b>stunnel</b>. O ile nie użyta została opcja <i>RNDoverwrite</i> jest to robione automatycznie. Do ręcznego uzyskania takiego pliku użyteczna może być komenda <i>openssl rand</i> dostarczana ze współczesnymi wersjami pakietu <b>OpenSSL</b>.</p>
+
+<p>Jeszcze jedna istotna informacja -- jeżeli dostępne jest urządzenie <i>/dev/urandom</i> biblioteka <b>OpenSSL</b> ma zwyczaj zasilania nim PRNG w trakcie sprawdzania stanu generatora. W systemach z <i>/dev/urandom</i> urządzenie to będzie najprawdopodobniej użyte, pomimo że znajduje się na samym końcu powyższej listy. Jest to właściwość biblioteki <b>OpenSSL</b>, a nie programu <b>stunnel</b>.</p>
+
+<h2 id="PARAMETRY-DH">PARAMETRY DH</h2>
+
+<p>Począwszy od wersji 4.40 <b>stunnel</b> zawiera w kodzie programu 2048-bitowe parametry DH. Od wersji 5.18 te początkowe wartości parametrów DH są wymieniane na automatycznie generowane parametry tymczasowe. Wygenerowanie parametrów DH może zająć nawet wiele minut.</p>
+
+<p>Alternatywnie parametry DH można umieścić w pliku razem z certyfikatem, co wyłącza generowanie parametrów tymczasowych:</p>
+
+<pre><code>    openssl dhparam 2048 &gt;&gt; stunnel.pem</code></pre>
+
+<a href="#_podtop_"><h1 id="PLIKI">PLIKI</h1></a>
+
+<dl>
+
+<dt id="sysconfdir-stunnel-stunnel.conf"><i>@sysconfdir@/stunnel/stunnel.conf</i></dt>
+<dd>
+
+<p>plik konfiguracyjny programu</p>
+
+</dd>
+</dl>
+
+<a href="#_podtop_"><h1 id="B-DY">BŁĘDY</h1></a>
+
+<p>Opcja <i>execArgs</i> oraz linia komend Win32 nie obsługuje cytowania.</p>
+
+<a href="#_podtop_"><h1 id="ZOBACZ-R-WNIE">ZOBACZ RÓWNIEŻ</h1></a>
+
+<dl>
+
+<dt id="tcpd-8"><a href="http://man.he.net/man8/tcpd">tcpd(8)</a></dt>
+<dd>
+
+<p>biblioteka kontroli dostępu do usług internetowych</p>
+
+</dd>
+<dt id="inetd-8"><a href="http://man.he.net/man8/inetd">inetd(8)</a></dt>
+<dd>
+
+<p>&#39;super-serwer&#39; internetowy</p>
+
+</dd>
+<dt id="http:-www.stunnel.org"><i>http://www.stunnel.org/</i></dt>
+<dd>
+
+<p>strona domowa programu <b>stunnel</b></p>
+
+</dd>
+<dt id="http:-www.openssl.org"><i>http://www.openssl.org/</i></dt>
+<dd>
+
+<p>strona projektu <b>OpenSSL</b></p>
+
+</dd>
+</dl>
+
+<a href="#_podtop_"><h1 id="AUTOR">AUTOR</h1></a>
+
+<dl>
+
+<dt id="Micha-Trojnara">Michał Trojnara</dt>
+<dd>
+
+<p>&lt;<i>Michal.Trojnara@stunnel.org</i>&gt;</p>
+
+</dd>
+</dl>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;stunnel TLS Proxy</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+
