@@ -1,0 +1,3 @@
+export SDK=/root/MP/Android-SDK
+export NDK=$SDK/ndk/25.1.8937393
+export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64

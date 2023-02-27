@@ -57,9 +57,10 @@ libstunnel_la_CPPFLAGS = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
 libstunnel_la_CPPFLAGS += -I$(SSLDIR)/include
 libstunnel_la_CPPFLAGS += -DLIBDIR='"$(pkglibdir)"'
 libstunnel_la_CPPFLAGS += -DCONFDIR='"$(sysconfdir)/stunnel"'
-libstunnel_la_LDFLAGS = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib 
-libstunnel_la_LDFLAGS += -avoid-version
-libstunnel_la_LIBADD = -l:libssl.so -l:libcrypto.so #$(libsources)
+# libstunnel_la_LDFLAGS = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib $(lib_sources)
+libstunnel_la_LDFLAGS = -avoid-version
+libstunnel_la_LIBADD = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib -l:libssl.a -l:libcrypto.a
+# libstunnel_la_LIBDADD = -lssl -lcrypto #$(libsources)
 
 ###############################################################################
 # Win32 executables                                                           #

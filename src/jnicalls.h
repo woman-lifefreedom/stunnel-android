@@ -2,7 +2,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-JNIEXPORT int JNICALL Java_StunnelProcessManager_begin(JNIEnv *env, jobject obj, jstring config);
+JNIEXPORT int JNICALL Java_link_infra_sslsockspro_service_StunnelService_beginStunnel(JNIEnv *env, jobject obj, jstring jstr);
+
+JNIEXPORT void JNICALL Java_link_infra_sslsockspro_service_StunnelService_reloadStunnel(JNIEnv *env, jobject obj, jstring jstr);
+
+JNIEXPORT void JNICALL Java_link_infra_sslsockspro_service_StunnelService_endStunnel(JNIEnv *env, jobject obj, jstring jstr);
+/*
+ * end extern
+ */
 #ifdef __cplusplus
 }
 #endif
