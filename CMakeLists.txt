@@ -19,7 +19,8 @@ endif()
 
 ExternalProject_Add(stunnel
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CONFIGURE_COMMAND . ${CMAKE_CURRENT_SOURCE_DIR}/vars/android-sdk-path && . ${CMAKE_CURRENT_SOURCE_DIR}/vars/vars-${ANDROID_ABI} && ${CMAKE_CURRENT_SOURCE_DIR}/configure --with-ssl=/root/MP/stunnel-android/aarch64-linux-android/install --disable-silent-rules --host ${target_autotools}
-    BUILD_COMMAND ${MAKE}
+    CONFIGURE_COMMAND . ${CMAKE_CURRENT_SOURCE_DIR}/vars/android-sdk-path && . ${CMAKE_CURRENT_SOURCE_DIR}/vars/vars-${ANDROID_ABI} && ${CMAKE_CURRENT_SOURCE_DIR}/configure --with-ssl=/root/MP/stunnel-android/aarch64-linux-android/install --disable-silent-rules --host ${target_autotools} 
+    BUILD_COMMAND make all # ${MAKE}
+    INSTALL_COMMAND cmake -E echo "Skipping install step."
     )
 
