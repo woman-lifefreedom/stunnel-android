@@ -472,6 +472,8 @@ AC_MSG_RESULT([$SSLDIR])
 AC_SUBST([SSLDIR])
 AC_DEFINE_UNQUOTED([SSLDIR], ["$SSLDIR"], [TLS directory])
 
+AC_ARG_VAR(SSL_ARCHIVE, Directory pointing to location of libssl.a and libcrypto.a)
+
 valid_CPPFLAGS="$CPPFLAGS"; CPPFLAGS="$CPPFLAGS -I$SSLDIR/include"
 valid_LIBS="$LIBS"; LIBS="$LIBS -L$SSLDIR/lib64 -L$SSLDIR/lib -lssl -lcrypto"
 

@@ -16,11 +16,16 @@ if (${ANDROID_ABI} STREQUAL "x86")
     set(target_autotools "i686-linux-android")
 endif()
 
+set(stunnel_libfolder "/stunnel/src/stunnel-build/src/.libs")
+
 
 ExternalProject_Add(stunnel
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CONFIGURE_COMMAND . ${CMAKE_CURRENT_SOURCE_DIR}/vars/android-sdk-path && . ${CMAKE_CURRENT_SOURCE_DIR}/vars/vars-${ANDROID_ABI} && ${CMAKE_CURRENT_SOURCE_DIR}/configure --with-ssl=/root/MP/stunnel-android/aarch64-linux-android/install --disable-silent-rules --host ${target_autotools} 
+    CONFIGURE_COMMAND . ${CMAKE_CURRENT_SOURCE_DIR}/vars/android-sdk-path && . ${CMAKE_CURRENT_SOURCE_DIR}/vars/vars-${ANDROID_ABI} && export SSL_ARCHIVE=/root/MP/stunnel-android/aarch64-linux-android/install/lib && ${CMAKE_CURRENT_SOURCE_DIR}/configure --with-ssl=/root/MP/stunnel-android/aarch64-linux-android/install --disable-silent-rules --host ${target_autotools} 
     BUILD_COMMAND make all # ${MAKE}
-    INSTALL_COMMAND cmake -E echo "Skipping install step."
+    PREFIX "stunnel"
+    INSTALL_COMMAND cmake -E echo "moving the built libraries to build folder" &&
+    mv ${CMAKE_CURRENT_BINARY_DIR}${stunnel_libfolder}/libstunnel.so ${CMAKE_CURRENT_BINARY_DIR} &&
+    mv ${CMAKE_CURRENT_BINARY_DIR}${stunnel_libfolder}/libstunnel.a ${CMAKE_CURRENT_BINARY_DIR}
     )
 

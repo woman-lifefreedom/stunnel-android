@@ -96,7 +96,10 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -335,6 +338,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SSLDIR = @SSLDIR@
+SSL_ARCHIVE = @SSL_ARCHIVE@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -447,7 +451,10 @@ libstunnel_la_CPPFLAGS = -I$(JAVA_HOME)/include \
 	-DLIBDIR='"$(pkglibdir)"' -DCONFDIR='"$(sysconfdir)/stunnel"'
 # libstunnel_la_LDFLAGS = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib $(lib_sources)
 libstunnel_la_LDFLAGS = -avoid-version
-libstunnel_la_LIBADD = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib -l:libssl.a -l:libcrypto.a
+#
+# Adding library options
+# libstunnel_la_LIBADD = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib -l:libssl.a -l:libcrypto.a
+libstunnel_la_LIBADD = -L$(SSL_ARCHIVE) -l:libssl.a -l:libcrypto.a
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 

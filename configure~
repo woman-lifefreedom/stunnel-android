@@ -660,6 +660,7 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+SSL_ARCHIVE
 SSLDIR
 DEFAULT_GROUP
 RANDOM_FILE
@@ -831,7 +832,8 @@ CXXFLAGS
 CCC
 LT_SYS_LIBRARY_PATH
 CXXCPP
-CPP'
+CPP
+SSL_ARCHIVE'
 
 
 # Initialize some variables set by options.
@@ -1507,6 +1509,7 @@ Some influential environment variables:
               User-defined run-time library search path.
   CXXCPP      C++ preprocessor
   CPP         C preprocessor
+  SSL_ARCHIVE Directory pointing to location of libssl.a and libcrypto.a
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -9541,6 +9544,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -21452,6 +21459,8 @@ printf "%s\n" "$SSLDIR" >&6; }
 
 
 printf "%s\n" "#define SSLDIR \"$SSLDIR\"" >>confdefs.h
+
+
 
 
 valid_CPPFLAGS="$CPPFLAGS"; CPPFLAGS="$CPPFLAGS -I$SSLDIR/include"
