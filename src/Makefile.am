@@ -9,8 +9,8 @@ common_headers = common.h prototypes.h version.h
 common_sources = tls.c str.c file.c client.c log.c options.c protocol.c
 common_sources += network.c resolver.c ssl.c ctx.c verify.c sthreads.c
 common_sources += fd.c dhparam.c cron.c stunnel.c 
-cpp_headers= jnicalls.h
-cpp_sources = jnicalls.cpp
+# cpp_headers= jnicalls.h
+# cpp_sources = jnicalls.cpp
 unix_sources = pty.c libwrap.c ui_unix.c
 shared_sources = env.c
 lib_sources = -lssl -lcrypto
@@ -62,7 +62,7 @@ libstunnel_la_LDFLAGS = -avoid-version
 #
 # Adding library options
 # libstunnel_la_LIBADD = -L$(SSLDIR)/lib64 -L$(SSLDIR)/lib -l:libssl.a -l:libcrypto.a
-libstunnel_la_LIBADD = -L$(SSL_ARCHIVE) -l:libssl.a -l:libcrypto.a
+# libstunnel_la_LIBADD = -L$(SSL_ARCHIVE) -l:libssl.a -l:libcrypto.a
 # libstunnel_la_LIBDADD = -lssl -lcrypto #$(libsources)
 
 ###############################################################################
